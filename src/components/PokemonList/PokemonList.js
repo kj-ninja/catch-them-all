@@ -9,10 +9,11 @@ const PokemonList = () => {
 
     const interval = {
         limit: 10,
-        offset: 20
+        offset: 60
     };
 
     const transformPokemons = (pokemons) => {
+        console.log(pokemons);
         const newPokemons = [];
 
         pokemons.forEach(pokemon => {
@@ -21,7 +22,6 @@ const PokemonList = () => {
 
                     P.resource(response.evolution_chain.url)
                         .then(function (response) {
-                            console.log(response.chain);
 
                             if (response.chain.species.name === pokemon.name) {
                                 newPokemons.push({
@@ -51,54 +51,15 @@ const PokemonList = () => {
                                     evolution: response.chain.evolves_to[0].evolves_to[0].evolves_to.length === 0 ? 'brak' : response.chain.evolves_to[0].evolves_to[0].species.name,
                                 })
                             }
+                            console.log(newPokemons);
+                            if (newPokemons.length === 10) {
+                                setTransformedPokemons(newPokemons.sort((a, b) => a.id - b.id));
+                            }
                         });
                 });
         });
 
-        setTimeout(()=> {setTransformedPokemons(newPokemons.sort((a, b) => a.id - b.id));}, 2000);
 
-
-        // metoda powinna zwrocic 10 przerobionych obiektow
-        // sprawdza jaki pokemon jest na poczatku i robi petle po chain szukajac tego samego imienia
-        // po znalezieniu sprawdza czy tablica evolves_to jest pusta?
-
-        // pokemony.forEach((pokemon, i) => {
-        //     console.log(pokemon.name);
-        //     chains.forEach((chain, j) => {
-        //         if (pokemon.name === chain.chain.species.name) {
-        //             result.push({
-        //                 id: pokemon.id,
-        //                 imageUrl: pokemon.sprites.front_default,
-        //                 name: pokemon.name,
-        //                 minLvl: chain.chain.evolution_details.length === 0 ? 1 : chain.chain.evolution_details[0].min_level,
-        //                 evolution: chain.chain.evolves_to[0].species.name,
-        //                 type: pokemon.types[0].type.name
-        //             });
-        //         } else if (pokemon.name === chain.chain.evolves_to[0].species.name) {
-        //             console.log('true');
-        //             result.push({
-        //                 id: pokemon.id,
-        //                 imageUrl: pokemon.sprites.front_default,
-        //                 name: pokemon.name,
-        //                 minLvl: chain.chain.evolves_to[0].evolution_details[0].min_level,
-        //                 evolution: chain.chain.evolves_to[0].evolves_to.length === 0 ? 'brak' : chain.chain.evolves_to[0].evolves_to[0].species.name,
-        //                 type: pokemon.types[0].type.name
-        //             });
-        //             console.log('koniec');
-        //         } else if (pokemon.name === chain.chain.evolves_to[0].evolves_to[0].species.name) {
-        //             result.push({
-        //                 id: pokemon.id,
-        //                 imageUrl: pokemon.sprites.front_default,
-        //                 name: pokemon.name,
-        //                 minLvl: chain.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level,
-        //                 evolution: 'brak',
-        //                 type: pokemon.types[0].type.name
-        //             });
-        //         }
-        //     })
-        // });
-        // setTransformedChains(result);
-        // console.log(result);
     };
 
     useEffect(() => {
