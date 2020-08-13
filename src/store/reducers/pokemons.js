@@ -4,7 +4,8 @@ const initialState = {
     transformedPokemons: [],
     loading: true,
     error: null,
-    pokemonToShow: null
+    pokemonToShow: null,
+    pokemonImage: null
 }
 
 const pokemons = (state= initialState, action) => {
@@ -27,10 +28,17 @@ const pokemons = (state= initialState, action) => {
                 loading: false,
                 error: action.payload
             }
-        case actionTypes.POKEMON_TO_SHOW:
+        case actionTypes.SET_POKEMON_TO_SHOW:
             return {
                 ...state,
-                pokemonToShow: action.payload
+                pokemonToShow: action.payload,
+                loading: false
+            }
+        case actionTypes.GET_POKEMON_IMAGE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                pokemonImage: action.payload
             }
         default:
             return state;

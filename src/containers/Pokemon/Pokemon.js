@@ -3,39 +3,55 @@ import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import './Pokemon.scss';
+import Spinner from "../../components/UI/Spinner/Spinner";
+import {setPokemonToShowAsync, getPokemonImage} from "../../store/actions/pokemons";
 
 const Pokedex = require('pokeapi-js-wrapper');
 const P = new Pokedex.Pokedex();
 
-const Pokemon = ({pokemonToShow}) => {
-    const [imageUrl, setImageUrl] = useState(null);
+const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, getPokemonImage}) => {
     const history = useHistory();
 
     useEffect(() => {
-        P.getPokemonByName(pokemonToShow.name) // with Promise
-            .then(function(response) {
-                setImageUrl(response.sprites.other["official-artwork"].front_default);
-            });
-    }, []);
+        getPokemonImage(pokemonToShow.name);
+    }, [pokemonToShow.name]);
 
-    if (!pokemonToShow && !imageUrl) {
-        return <h1>BRAK POKEMONA</h1>
+    const handleNextPokemon = (id) => {
+        setPokemonToShowAsync(id)
+    };
+
+    const handlePreviousPokemon = (id) => {
+        console.log(id);
+        if (id === 0) {
+            alert('To jest pierwszy pokemon na liście, sprawdź następne!');
+        }
+        setPokemonToShowAsync(id)
     }
 
     return (
         <div className="pokemon">
-            <div className="logo" onClick={()=>history.push('/')}><img src={Logo} alt="logo"/></div>
-            <div className="pokemon-container">
-                <div className="pokemon-image"><img src={imageUrl} alt="pokemon"/></div>
-                <div className="pokemon-stats">Statystyki?</div>
-            </div>
-            <div>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</div>
+            <div className="logo" onClick={() => history.push('/')}><img src={Logo} alt="logo"/></div>
+            {loading ? <Spinner/> :
+            <>
+                <div className="pokemon-container">
+                    <div className="pokemon-image"><img src={pokemonImage} alt="pokemon"/></div>
+                    <div className="pokemon-stats"></div>
+                </div>
+                <div className="pokemon-footer">
+                    <div onClick={() => handlePreviousPokemon(pokemonToShow.id - 1)}>Powrót</div>
+                    <div>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</div>
+                    <div onClick={() => handleNextPokemon(pokemonToShow.id + 1)}>Następny</div>
+                </div>
+            </>
+            }
         </div>
     );
 };
 
 const mapStateToProps = (state) => ({
-   pokemonToShow: state.pokemons.pokemonToShow
+    pokemonToShow: state.pokemons.pokemonToShow,
+    loading: state.pokemons.loading,
+    pokemonImage: state.pokemons.pokemonImage
 });
 
-export default connect(mapStateToProps)(Pokemon);
+export default connect(mapStateToProps, {setPokemonToShowAsync, getPokemonImage})(Pokemon);
