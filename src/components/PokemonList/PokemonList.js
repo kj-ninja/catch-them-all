@@ -1,78 +1,53 @@
 import React, {useEffect, useState} from 'react';
 import './PokemonList.scss';
+import transformPokemons from "../../functions/transformPokemons";
 
 const Pokedex = require('pokeapi-js-wrapper');
 const P = new Pokedex.Pokedex();
 
 const PokemonList = () => {
     const [transformedPokemons, setTransformedPokemons] = useState([]);
+    const [pokemonsToShow, setPokemonsToShow] = useState([]);
+    const [limit, setLimit] = useState(10);
+    const [offset, setOffset] = useState(0);
+    const [count, setCount] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const []
+    const pageNumbers = [];
+
+    const changePage = (e, i) => {
+        if (i=== 1) {
+            setOffset(0);
+            setCurrentPage(i);
+        }
+        setOffset((i - 1) * 10);
+        setCurrentPage(i);
+    };
+
+    if (count) {
+        for (let i = 1; i <= Math.ceil(count / limit); i++) {
+            const element = <li onClick={(e)=>changePage(e, i)} className="col-1" key={i}>{i}</li>;
+            pageNumbers.push(element);
+        }
+        console.log(pageNumbers);
+    }
 
     const interval = {
         limit: 10,
-        offset: 60
-    };
-
-    const transformPokemons = (pokemons) => {
-        console.log(pokemons);
-        const newPokemons = [];
-
-        pokemons.forEach(pokemon => {
-            P.getPokemonSpeciesByName(pokemon.name)
-                .then(function (response) {
-
-                    P.resource(response.evolution_chain.url)
-                        .then(function (response) {
-
-                            if (response.chain.species.name === pokemon.name) {
-                                newPokemons.push({
-                                    id: pokemon.id,
-                                    name: pokemon.species.name,
-                                    imageUrl: pokemon.sprites.front_default,
-                                    type: pokemon.types[0].type.name,
-                                    minLvl: response.chain.evolution_details.length === 0 ? 1 : response.chain.evolution_details[0].min_level,
-                                    evolution: response.chain.evolves_to[0].species.name,
-                                })
-                            } else if (response.chain.evolves_to[0].species.name === pokemon.name) {
-                                newPokemons.push({
-                                    id: pokemon.id,
-                                    name: pokemon.species.name,
-                                    imageUrl: pokemon.sprites.front_default,
-                                    type: pokemon.types[0].type.name,
-                                    minLvl: response.chain.evolves_to[0].evolution_details[0].min_level,
-                                    evolution: response.chain.evolves_to[0].evolves_to.length === 0 ? 'brak' : response.chain.evolves_to[0].evolves_to[0].species.name,
-                                })
-                            } else if (response.chain.evolves_to[0].evolves_to[0].species.name === pokemon.name) {
-                                newPokemons.push({
-                                    id: pokemon.id,
-                                    name: pokemon.species.name,
-                                    imageUrl: pokemon.sprites.front_default,
-                                    type: pokemon.types[0].type.name,
-                                    minLvl: response.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level,
-                                    evolution: response.chain.evolves_to[0].evolves_to[0].evolves_to.length === 0 ? 'brak' : response.chain.evolves_to[0].evolves_to[0].species.name,
-                                })
-                            }
-                            console.log(newPokemons);
-                            if (newPokemons.length === 10) {
-                                setTransformedPokemons(newPokemons.sort((a, b) => a.id - b.id));
-                            }
-                        });
-                });
-        });
-
-
+        offset: 0
     };
 
     useEffect(() => {
         const fetchPokemons = async () => {
             try {
-                // fetchuje 10 pierwszych pokemonow
+                // fetchujemy pierwsze 10 pokemonow
                 const pokemonsList = await P.getPokemonsList(interval);
-                // tworze arrayke z 10 pierwszymi nazwami pokemonow
+                // zapisujemy ilosc pokemonow
+                setCount(pokemonsList.count);
                 const pokemonsNames = pokemonsList.results.map(pokemon => pokemon.name);
-                // dodaje do stanu 10 pierwszych pokemonow
                 const pokemonsArr = await P.getPokemonByName(pokemonsNames)
 
-                transformPokemons(pokemonsArr);
+                transformPokemons(pokemonsArr, setTransformedPokemons);
             } catch (error) {
                 console.log(error);
             }
@@ -103,6 +78,11 @@ const PokemonList = () => {
                     </div>
                 ))
             }
+            <div className="pagination row">
+                <div className="col-1">w lewo</div>
+                {pageNumbers.length !== 0 ? pageNumbers.slice() : null}
+                <div className="col-1">w prawo</div>
+            </div>
         </div>
     );
 };
