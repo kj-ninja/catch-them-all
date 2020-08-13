@@ -1,0 +1,27 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.pagination {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.pagination > li {
+  border: 2px solid rgb(185, 181, 181);
+  margin: 10px;
+  padding: 10px;
+  list-style: none;
+  cursor: pointer;
+  background: #eee;
+
+  &.active {
+    background-color: yellow;
+  }
+}
+
