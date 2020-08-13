@@ -2,10 +2,6 @@
   width: 85%;
   margin: 30px auto;
 
-  .header {
-    background-color: yellow;
-  }
-
   .pagination {
     justify-content: center;
   }
@@ -14,12 +10,18 @@
     display: flex;
     padding: 15px 10px;
     align-items: center;
-    height: 110px;
+    height: 80px;
+    cursor: pointer;
     @for $i from 1 through 10 {
       .col-#{$i} {
         text-align: center;
         width: percentage(1 / 10) * $i;
       }
     }
+  }
+
+  .header {
+    background-color: yellow;
+    cursor: default;
   }
 }

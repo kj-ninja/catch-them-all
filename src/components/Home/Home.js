@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.scss'
 import Logo from '../../assets/logo.png'
-import PokemonList from "../PokemonList/PokemonList";
+import PokemonList from "../../containers/PokemonList/PokemonList";
 
 const Home = () => {
     return (
