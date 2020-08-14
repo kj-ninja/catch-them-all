@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import './Pagination.scss';
+import {PaginationContainer, PaginationItem} from "./Pagination.styled";
 
 const PaginationComponent = ({ pages, active, setPaginate, setActive, paginate }) => {
 
@@ -22,13 +22,13 @@ const PaginationComponent = ({ pages, active, setPaginate, setActive, paginate }
 
     return (
         <>
-            <div className="pagination">
+            <PaginationContainer>
                 {pages.map((page, index) => (
-                    <li key={index} value={page} onClick={handlePaginate} className={active === page ? 'active' : ''}>
+                    <PaginationItem key={index} value={page} onClick={handlePaginate} isActive={active === page ? true : null}>
                         {page}
-                    </li>
+                    </PaginationItem>
                 ))}
-            </div>
+            </PaginationContainer>
         </>
     );
 };

@@ -1,24 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import Logo from '../../assets/logo.png';
-import './Pokemon.scss';
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {setPokemonToShowAsync, getPokemonImage} from "../../store/actions/pokemons";
-
-const Pokedex = require('pokeapi-js-wrapper');
-const P = new Pokedex.Pokedex();
+import {PokemonContainer, PokemonLogo, Container, PokemonButton, PokemonFooter, PokemonName, PokemonStats} from "./Pokemon.styles";
 
 const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, getPokemonImage}) => {
     const history = useHistory();
 
     useEffect(() => {
         getPokemonImage(pokemonToShow.name);
-    }, [pokemonToShow.name]);
-
-    const handleNextPokemon = (id) => {
-        setPokemonToShowAsync(id)
-    };
+    }, [pokemonToShow.name, getPokemonImage]);
 
     const handlePreviousPokemon = (id) => {
         console.log(id);
@@ -29,22 +22,27 @@ const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, g
     }
 
     return (
-        <div className="pokemon">
-            <div className="logo" onClick={() => history.push('/')}><img src={Logo} alt="logo"/></div>
+        <>
             {loading ? <Spinner/> :
-            <>
-                <div className="pokemon-container">
-                    <div className="pokemon-image"><img src={pokemonImage} alt="pokemon"/></div>
-                    <div className="pokemon-stats"></div>
-                </div>
-                <div className="pokemon-footer">
-                    <div onClick={() => handlePreviousPokemon(pokemonToShow.id - 1)}>Powrót</div>
-                    <div>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</div>
-                    <div onClick={() => handleNextPokemon(pokemonToShow.id + 1)}>Następny</div>
-                </div>
-            </>
+                <PokemonContainer>
+                    <PokemonLogo onClick={() => history.push('/')}><img src={Logo} alt="logo"/></PokemonLogo>
+                    <Container>
+                        <div className="pokemon-image"><img src={pokemonImage} alt="pokemon"/></div>
+                        <PokemonStats className="pokemon-stats"></PokemonStats>
+                    </Container>
+                    <PokemonFooter>
+                        <PokemonButton onClick={() => handlePreviousPokemon(pokemonToShow.id - 1)}>
+                            <i className="fas fa-angle-left"/>Powrót
+                        </PokemonButton>
+                        <PokemonName>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</PokemonName>
+                        <PokemonButton onClick={() => setPokemonToShowAsync(pokemonToShow.id + 1)}>
+                            Następny<i className="fas fa-angle-right"/>
+                        </PokemonButton>
+                    </PokemonFooter>
+                </PokemonContainer>
             }
-        </div>
+        </>
+
     );
 };
 

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {fetchPokemons} from "../../store/actions/pokemons";
-import './PokemonList.scss';
 import PaginationComponent from "../../components/Pagination/Pagination";
 import PokemonItem from "./PokemonItem/PokemonItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {PokedexContainer, PokedexHeaderRow, PokedexPaginationRow, PokedexCol} from "./PokemonList.styles";
 
 const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
     const [paginate, setPaginate] = useState({
@@ -33,21 +33,21 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
 
     return (
         <>
-            <div className="pokedex">
-                <div className="header row">
-                    <div className="col-1">ID</div>
-                    <div className="col-2">POKEMON</div>
-                    <div className="col-2">NAZWA</div>
-                    <div className="col-2">MIN. LVL</div>
-                    <div className="col-1">TYP</div>
-                    <div className="col-2">EWOLUCJA</div>
-                </div>
+            <PokedexContainer>
+                <PokedexHeaderRow>
+                    <PokedexCol width={10}>ID</PokedexCol>
+                    <PokedexCol width={20}>POKEMON</PokedexCol>
+                    <PokedexCol width={20}>NAZWA</PokedexCol>
+                    <PokedexCol width={20}>MIN. LVL</PokedexCol>
+                    <PokedexCol width={10}>TYP</PokedexCol>
+                    <PokedexCol width={20}>EWOLUCJA</PokedexCol>
+                </PokedexHeaderRow>
                 {loading ? <Spinner/> :
                     transformedPokemons.map(pokemon => (
                         <PokemonItem key={pokemon.id} pokemon={pokemon}/>
                     ))
                 }
-                <div className="pagination row">
+                <PokedexPaginationRow>
                     <PaginationComponent
                         setActive={setActive}
                         setPaginate={setPaginate}
@@ -55,8 +55,8 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
                         active={active}
                         paginate={paginate}
                     />
-                </div>
-            </div>
+                </PokedexPaginationRow>
+            </PokedexContainer>
         </>
     );
 };
