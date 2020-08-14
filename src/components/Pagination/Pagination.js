@@ -1,9 +1,9 @@
-import React, {useCallback} from "react";
+import React from "react";
 import {PaginationContainer, PaginationItem} from "./Pagination.styled";
 
 const PaginationComponent = ({ pages, active, setPaginate, setActive, paginate }) => {
 
-    const handlePaginate = useCallback(e => {
+    const handlePaginate = e => {
         if (e.target.value === 0) {
             return;
         }
@@ -18,7 +18,7 @@ const PaginationComponent = ({ pages, active, setPaginate, setActive, paginate }
             offset: (e.target.value - 1) * 10
         });
         setActive(e.target.value);
-    }, []);
+    };
 
     return (
         <>

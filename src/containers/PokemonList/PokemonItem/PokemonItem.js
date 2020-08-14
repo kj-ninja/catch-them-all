@@ -9,7 +9,7 @@ const PokemonItem = ({pokemon, setPokemonToShow}) => {
 
     const handleClick = (pokemon) => {
         setPokemonToShow(pokemon);
-        history.push(`/pokemon/${pokemon.id}`);
+        history.push('/pokemon');
     };
 
     return (

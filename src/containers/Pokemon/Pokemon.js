@@ -14,7 +14,6 @@ const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, g
     }, [pokemonToShow.name, getPokemonImage]);
 
     const handlePreviousPokemon = (id) => {
-        console.log(id);
         if (id === 0) {
             alert('To jest pierwszy pokemon na liście, sprawdź następne!');
         }

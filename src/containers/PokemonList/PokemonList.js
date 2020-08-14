@@ -17,7 +17,7 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
 
     useEffect(() => {
         fetchPokemons(paginate, setTotalPages);
-    }, [paginate]);
+    }, [fetchPokemons, paginate]);
 
     useEffect(() => {
         if (active <= 4) {

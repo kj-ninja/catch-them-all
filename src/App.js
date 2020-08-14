@@ -7,7 +7,7 @@ function App() {
   return (
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/pokemon/" component={Pokemon}/>
+        <Route path="/pokemon" component={Pokemon}/>
       </Switch>
   );
 }
