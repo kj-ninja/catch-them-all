@@ -5,6 +5,9 @@ export const PokedexContainer = styled.div`
     margin: 30px auto;
     background-color: #eee;
     color: #2365b5;
+    
+    @media screen and (max-width: 700px) {
+        font-size: 14px;
 `;
 
 export const PokedexHeaderRow = styled.div`

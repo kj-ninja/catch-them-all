@@ -50,6 +50,5 @@ export const getPokemonImage = (name) => {
         dispatch(fetchPokemonsStart());
         const pokemonImage = await P.getPokemonByName(name) // with Promise
         dispatch(getPokemonImageSuccess(pokemonImage.sprites.other["official-artwork"].front_default));
-
     }
 }

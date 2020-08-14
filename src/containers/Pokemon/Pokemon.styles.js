@@ -10,18 +10,21 @@ export const PokemonContainer = styled.div`
 export const PokemonLogo = styled.div`
     margin-bottom: 30px;
     cursor: pointer;
+    
+    @media screen and (max-width: 700px) {
+        img {
+            width: 300px;
+        }
+    }
 `;
 
-export const Container = styled.div`
-    display: flex;
-    max-width: 1600px;
-    margin: 0 auto;
-    flex-direction: row;
-`;
+export const PokemonImage = styled.div`
+    @media screen and (max-width: 700px) {
+        img {
+            max-width: 100%;
+        }
+    }
 
-export const PokemonStats = styled.div`
-    padding-top: 100px;
-    margin-left: 30px;
 `;
 
 export const PokemonFooter = styled.div`
@@ -30,12 +33,20 @@ export const PokemonFooter = styled.div`
     width: 600px;
     margin: 30px auto;
     align-items: center;
+    
+    @media screen and (max-width: 700px) {
+        width: 350px
+    }
 `;
 
 export const PokemonName = styled.div`
     color: #2365b5;
     font-size: 24px;
     font-weight: bold;
+    
+    @media screen and (max-width: 700px) {
+        font-size: 18px;
+    }
 `;
 
 export const PokemonButton = styled.div`
@@ -45,6 +56,12 @@ export const PokemonButton = styled.div`
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+    
+    @media screen and (max-width: 700px) {
+        width: 100px;
+        font-size: 16px;
+        padding: 5px 3px;
+    }
     
         .fa-angle-left {
             margin-right: 10px;

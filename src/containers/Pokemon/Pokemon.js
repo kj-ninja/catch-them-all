@@ -4,7 +4,15 @@ import {useHistory} from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {setPokemonToShowAsync, getPokemonImage} from "../../store/actions/pokemons";
-import {PokemonContainer, PokemonLogo, Container, PokemonButton, PokemonFooter, PokemonName, PokemonStats} from "./Pokemon.styles";
+import {
+    PokemonContainer,
+    PokemonLogo,
+    Container,
+    PokemonButton,
+    PokemonFooter,
+    PokemonName,
+    PokemonImage
+} from "./Pokemon.styles";
 
 const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, getPokemonImage}) => {
     const history = useHistory();
@@ -25,10 +33,7 @@ const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, g
             {loading ? <Spinner/> :
                 <PokemonContainer>
                     <PokemonLogo onClick={() => history.push('/')}><img src={Logo} alt="logo"/></PokemonLogo>
-                    <Container>
-                        <div className="pokemon-image"><img src={pokemonImage} alt="pokemon"/></div>
-                        <PokemonStats className="pokemon-stats"></PokemonStats>
-                    </Container>
+                    <PokemonImage><img src={pokemonImage} alt="pokemon"/></PokemonImage>
                     <PokemonFooter>
                         <PokemonButton onClick={() => handlePreviousPokemon(pokemonToShow.id - 1)}>
                             <i className="fas fa-angle-left"/>Powrót

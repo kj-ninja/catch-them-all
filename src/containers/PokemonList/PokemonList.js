@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {fetchPokemons} from "../../store/actions/pokemons";
+import useWindowWidth from "../../functions/customHooks/useWindowWidth";
 import PaginationComponent from "../../components/Pagination/Pagination";
 import PokemonItem from "./PokemonItem/PokemonItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
@@ -14,6 +15,7 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
     const [totalPages, setTotalPages] = useState(null);
     const [active, setActive] = useState(1);
     const [pages, setPages] = useState([]);
+    const width = useWindowWidth();
 
     useEffect(() => {
         fetchPokemons(paginate, setTotalPages);
@@ -34,14 +36,22 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
     return (
         <>
             <PokedexContainer>
-                <PokedexHeaderRow>
-                    <PokedexCol width={10}>ID</PokedexCol>
-                    <PokedexCol width={20}>POKEMON</PokedexCol>
-                    <PokedexCol width={20}>NAZWA</PokedexCol>
-                    <PokedexCol width={20}>MIN. LVL</PokedexCol>
-                    <PokedexCol width={10}>TYP</PokedexCol>
-                    <PokedexCol width={20}>EWOLUCJA</PokedexCol>
-                </PokedexHeaderRow>
+                {width < 700 ?
+                    <PokedexHeaderRow>
+                        <PokedexCol width={10}>ID</PokedexCol>
+                        <PokedexCol width={60}>NAZWA</PokedexCol>
+                        <PokedexCol width={30}>TYP</PokedexCol>
+                    </PokedexHeaderRow> :
+                    <PokedexHeaderRow>
+                        <PokedexCol width={10}>ID</PokedexCol>
+                        <PokedexCol width={20}>POKEMON</PokedexCol>
+                        <PokedexCol width={20}>NAZWA</PokedexCol>
+                        <PokedexCol width={20}>MIN. LVL</PokedexCol>
+                        <PokedexCol width={10}>TYP</PokedexCol>
+                        <PokedexCol width={20}>EWOLUCJA</PokedexCol>
+                    </PokedexHeaderRow>
+                }
+
                 {loading ? <Spinner/> :
                     transformedPokemons.map(pokemon => (
                         <PokemonItem key={pokemon.id} pokemon={pokemon}/>

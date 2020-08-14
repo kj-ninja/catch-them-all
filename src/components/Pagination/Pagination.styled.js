@@ -5,6 +5,10 @@ export const PaginationContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    
+    @media screen and (max-width: 700px) {
+        width: 100%;
+    }
 `;
 
 export const PaginationItem = styled.li`
@@ -17,6 +21,11 @@ export const PaginationItem = styled.li`
     border: none;
     font-size: 20px;
     font-weight: bold;
+    
+    @media screen and (max-width: 700px) {
+        padding: 5px 10px;
+        margin: 8px;
+    }
     
     &:hover {
       color: #ffe400;

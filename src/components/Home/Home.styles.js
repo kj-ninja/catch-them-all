@@ -6,18 +6,33 @@ export const HomeContainer = styled.div`
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    
 `;
 
 export const HomeImage = styled.div`
     width: 49%;
     height: 104vh;
     background-image: url(${img});
+    
+    @media screen and (max-width: 1200px) {
+        display: none;
+    }
 `;
 
 export const HomePokemons = styled.div`
     width: 49%;
+        @media screen and (max-width: 1200px) {
+        width: 100%;
+    }
+    
 `;
 
 export const HomeLogo = styled.div`
     text-align: center;
+    
+    @media screen and (max-width: 1200px) {
+        img {
+            width: 300px;
+        }    
+    }
 `;
