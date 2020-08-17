@@ -18,11 +18,29 @@ export const PokemonLogo = styled.div`
     }
 `;
 
+export const PokemonSpecies = styled.div`
+    display: flex;
+    
+
+`;
+
 export const PokemonImage = styled.div`
+    width: 55%;
+    display: flex;
+    justify-content: flex-end;
     @media screen and (max-width: 700px) {
         img {
             max-width: 100%;
         }
+    }
+
+`;
+
+export const PokemonDescription = styled.div`
+    width: 45%;
+    
+    span {
+        font-weight: bold;
     }
 
 `;

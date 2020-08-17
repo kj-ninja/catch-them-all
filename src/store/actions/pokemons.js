@@ -33,14 +33,24 @@ export const getPokemonById = (id) => {
             dispatch(fetchPokemonsStart());
             const pokemon = await P.resource(`api/v2/pokemon/${id}`);
             const pokemonImg = pokemon.sprites.other["official-artwork"].front_default;
-            // const pokemon
+            const pokemonTypes = pokemon.types.map(({type})=> type.name);
+
             const pokemonSpecies = await P.getPokemonSpeciesByName(pokemon.name);
-            console.log(pokemonSpecies);
+            const pokemonInJapan = `(jap. ${pokemonSpecies.names[0].name} ${pokemonSpecies.names[1].name})`
+            const pokedexNumber = pokemonSpecies.pokedex_numbers[0].entry_number;
+
+            const pokemonGeneration = await P.getGenerationByName(pokemonSpecies.generation.name);
+            const pokemonRegion = pokemonGeneration.main_region.name
 
             const pokemonToShow = {
                 id: pokemon.id,
                 name: pokemon.name,
-                imageUrl: pokemonImg
+                imageUrl: pokemonImg,
+                types: pokemon.types.map(({type})=> type.name),
+                japanName: pokemonInJapan,
+                pokemonTypes,
+                pokedexNumber,
+                region: pokemonRegion
             };
 
             dispatch(setPokemonToShow(pokemonToShow));

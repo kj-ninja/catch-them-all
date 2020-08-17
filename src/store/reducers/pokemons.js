@@ -5,7 +5,6 @@ const initialState = {
     loading: true,
     error: null,
     pokemonToShow: null,
-    pokemonImage: null
 }
 
 const pokemons = (state= initialState, action) => {
@@ -33,12 +32,6 @@ const pokemons = (state= initialState, action) => {
                 ...state,
                 pokemonToShow: action.payload,
                 loading: false
-            }
-        case actionTypes.GET_POKEMON_IMAGE_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                pokemonImage: action.payload
             }
         default:
             return state;
