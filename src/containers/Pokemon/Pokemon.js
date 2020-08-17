@@ -31,6 +31,11 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
         console.log(id);
     };
 
+
+    if (!pokemonToShow) {
+        return <Spinner/>;
+    }
+
     return (
         <>
             {loading ? <Spinner/> :
