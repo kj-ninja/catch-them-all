@@ -7,7 +7,6 @@ import {setPokemonToShowAsync, getPokemonImage} from "../../store/actions/pokemo
 import {
     PokemonContainer,
     PokemonLogo,
-    Container,
     PokemonButton,
     PokemonFooter,
     PokemonName,

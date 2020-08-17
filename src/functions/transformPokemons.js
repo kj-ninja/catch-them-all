@@ -12,6 +12,8 @@ const transformPokemons = (pokemons, callback) => {
 
                 P.resource(response.evolution_chain.url)
                     .then(function (response) {
+                        console.log(response.chain);
+                        console.log(pokemon);
 
                         if (response.chain.species.name === pokemon.name) {
                             newPokemons.push({
@@ -42,9 +44,27 @@ const transformPokemons = (pokemons, callback) => {
                                 minLvl: response.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level ? response.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level : 'brak',
                                 evolution: response.chain.evolves_to[0].evolves_to[0].evolves_to.length === 0 ? 'brak' : response.chain.evolves_to[0].evolves_to[0].species.name
                             })
+                        } else if (response.chain.evolves_to.length === 0) {
+                            newPokemons.push({
+                                id: pokemon.id,
+                                name: pokemon.species.name,
+                                imageUrl: pokemon.sprites.front_default,
+                                type: pokemon.types[0].type.name,
+                                minLvl: 1,
+                                evolution: 'brak'
+                            })
+                        } else {
+                            newPokemons.push({
+                                id: pokemon.id,
+                                name: pokemon.species.name,
+                                imageUrl: pokemon.sprites.front_default,
+                                type: pokemon.types[0].type.name,
+                                minLvl: 1,
+                                evolution: 'brak'
+                            })
                         }
 
-                        if (newPokemons.length === 10) {
+                        if (newPokemons.length === pokemons.length) {
                             callback(fetchPokemonsSuccess(newPokemons.sort((a, b) => a.id - b.id)));
                         }
                     });
