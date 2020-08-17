@@ -27,28 +27,38 @@ export const fetchPokemons = (paginate, setTotalPages) => {
 
 export const setPokemonToShow = (pokemon) => ({type: actionTypes.SET_POKEMON_TO_SHOW, payload: pokemon});
 
-export const setPokemonToShowAsync = (id) => {
+export const getPokemonById = (id) => {
     return async dispatch => {
         try {
             dispatch(fetchPokemonsStart());
-            const getPokemonById = await P.resource(`api/v2/pokemon/${id}`);
-            dispatch(setPokemonToShow(getPokemonById));
+            const pokemon = await P.resource(`api/v2/pokemon/${id}`);
+            const pokemonImg = pokemon.sprites.other["official-artwork"].front_default;
+            // const pokemon
+            const pokemonSpecies = await P.getPokemonSpeciesByName(pokemon.name);
+            console.log(pokemonSpecies);
 
+            const pokemonToShow = {
+                id: pokemon.id,
+                name: pokemon.name,
+                imageUrl: pokemonImg
+            };
+
+            dispatch(setPokemonToShow(pokemonToShow));
         } catch (error) {
             dispatch(fetchPokemonsFail(error));
         }
-    }
-}
+    };
+};
 
-export const getPokemonImageSuccess = (image) => ({
-    type: actionTypes.GET_POKEMON_IMAGE_SUCCESS,
-    payload: image
-});
-
-export const getPokemonImage = (name) => {
-    return async dispatch => {
-        dispatch(fetchPokemonsStart());
-        const pokemonImage = await P.getPokemonByName(name) // with Promise
-        dispatch(getPokemonImageSuccess(pokemonImage.sprites.other["official-artwork"].front_default));
-    }
-}
+// export const getPokemonImageSuccess = (image) => ({
+//     type: actionTypes.GET_POKEMON_IMAGE_SUCCESS,
+//     payload: image
+// });
+//
+// export const getPokemonImage = (name) => {
+//     return async dispatch => {
+//         dispatch(fetchPokemonsStart());
+//         const pokemonImage = await P.getPokemonByName(name) // with Promise
+//         dispatch(getPokemonImageSuccess(pokemonImage.sprites.other["official-artwork"].front_default));
+//     }
+// }

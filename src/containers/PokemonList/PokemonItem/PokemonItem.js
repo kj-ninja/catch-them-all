@@ -5,17 +5,16 @@ import {setPokemonToShow} from "../../../store/actions/pokemons";
 import useWindowWidth from "../../../functions/customHooks/useWindowWidth";
 import {PokemonRow, PokemonCol} from "./PokemonItem.styles";
 
-const PokemonItem = ({pokemon, setPokemonToShow}) => {
+const PokemonItem = ({pokemon}) => {
     const history = useHistory();
     const width = useWindowWidth();
 
-    const handleClick = (pokemon) => {
-        setPokemonToShow(pokemon);
-        history.push('/pokemon');
+    const handleClick = (pokemonId) => {
+        history.push(`/pokemon/${pokemonId}`);
     };
 
     return (
-            <PokemonRow className="row" onClick={() => handleClick(pokemon)}>
+            <PokemonRow className="row" onClick={() => handleClick(pokemon.id)}>
                 {width < 700 ?
                     <>
                         <PokemonCol width={10}>{pokemon.id}</PokemonCol>
