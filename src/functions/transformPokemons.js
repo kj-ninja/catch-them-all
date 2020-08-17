@@ -12,8 +12,6 @@ const transformPokemons = (pokemons, callback) => {
 
                 P.resource(response.evolution_chain.url)
                     .then(function (response) {
-                        console.log(response.chain);
-                        console.log(pokemon);
 
                         if (response.chain.species.name === pokemon.name) {
                             newPokemons.push({

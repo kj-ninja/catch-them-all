@@ -24,8 +24,8 @@ const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, g
         if (id === 0) {
             alert('To jest pierwszy pokemon na liście, sprawdź następne!');
         }
-        setPokemonToShowAsync(id)
-    }
+        setPokemonToShowAsync(id);
+    };
 
     return (
         <>
