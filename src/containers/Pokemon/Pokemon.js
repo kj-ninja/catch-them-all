@@ -15,7 +15,6 @@ import {
 
 const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
     const {params: {pokemonId}} = match;
-    console.log(match);
 
     useEffect(() => {
         getPokemonById(pokemonId);
@@ -41,39 +40,40 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
 
     return (
         <>
-            {loading ? <Spinner/> :
-                <PokemonContainer>
-                    <PokemonLogo onClick={() => history.push('/')}><img src={Logo} alt="logo"/></PokemonLogo>
+            <PokemonContainer>
+                <PokemonLogo onClick={() => history.push('/')}><img src={Logo} alt="logo"/></PokemonLogo>
+                {loading ? <Spinner/> :
                     <PokemonSpecies>
                         <PokemonImage>
                             <img src={pokemonToShow.imageUrl} alt="pokemon"/>
                         </PokemonImage>
                         <PokemonDescription>
-                            <div><span>{pokemonToShow.name}</span> {pokemonToShow.japanName} - pokemon typu {pokemonToShow.types.join(', ')}.
-                                Znajduje się pod {pokemonToShow.pokedexNumber} numberem w pokedexie
+                            <div><span>{pokemonToShow.name}</span> {pokemonToShow.japanName} - pokemon
+                                typu {pokemonToShow.types.join(', ')}.
+                                Znajduje się pod {pokemonToShow.pokedexNumber} numerem w pokedexie.
                             </div>
                             <div>
-                                <p><span>Typ:</span> {pokemonToShow.types.join(' ')}</p>
-                                <p><span>Płeć:</span></p>
-                                <p><span>Region:</span> {pokemonToShow.region}</p>
-                                <p><span>Występowanie w dziczy:</span></p>
-                                <p><span>Możliwość złapania:</span></p>
-                                <p><span>Występowanie Shiny:</span></p>
-                                <p><span>Dodawany do kolekcji przez:</span></p>
+                                <p><span>Typ: </span>{pokemonToShow.types.join(' ')}</p>
+                                <p><span>Płeć: </span></p>
+                                <p><span>Region: </span>{pokemonToShow.region}</p>
+                                <p><span>Występowanie w dziczy: </span></p>
+                                <p><span>Możliwość złapania: </span></p>
+                                <p><span>Występowanie Shiny: </span></p>
+                                <p><span>Dodawany do kolekcji przez: </span></p>
                             </div>
                         </PokemonDescription>
                     </PokemonSpecies>
-                    <PokemonFooter>
-                        <PokemonButton onClick={() => handlePreviousPokemon(pokemonToShow.id)}>
-                            <i className="fas fa-angle-left"/>Powrót
-                        </PokemonButton>
-                        <PokemonName>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</PokemonName>
-                        <PokemonButton onClick={()=>handleNextPokemon(pokemonToShow.id)}>
-                            Następny<i className="fas fa-angle-right"/>
-                        </PokemonButton>
-                    </PokemonFooter>
-                </PokemonContainer>
-            }
+                }
+                <PokemonFooter>
+                    <PokemonButton onClick={() => handlePreviousPokemon(pokemonToShow.id)}>
+                        <i className="fas fa-angle-left"/>Powrót
+                    </PokemonButton>
+                    <PokemonName>{pokemonToShow.id} {pokemonToShow.name.toUpperCase()}</PokemonName>
+                    <PokemonButton onClick={() => handleNextPokemon(pokemonToShow.id)}>
+                        Następny<i className="fas fa-angle-right"/>
+                    </PokemonButton>
+                </PokemonFooter>
+            </PokemonContainer>
         </>
 
     );

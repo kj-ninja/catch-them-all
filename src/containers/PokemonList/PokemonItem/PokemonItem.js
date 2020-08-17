@@ -1,7 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {setPokemonToShow} from "../../../store/actions/pokemons";
 import useWindowWidth from "../../../functions/customHooks/useWindowWidth";
 import {PokemonRow, PokemonCol} from "./PokemonItem.styles";
 
@@ -36,8 +34,4 @@ const PokemonItem = ({pokemon}) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    pokemonToShow: state.pokemons.pokemonToShow
-});
-
-export default connect(mapStateToProps, {setPokemonToShow})(PokemonItem);
+export default PokemonItem;

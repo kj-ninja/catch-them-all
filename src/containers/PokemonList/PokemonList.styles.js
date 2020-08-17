@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PokedexContainer = styled.div`
     width: 85%;
+    height: 878px;
     margin: 30px auto;
     background-color: #eee;
     color: #2365b5;
