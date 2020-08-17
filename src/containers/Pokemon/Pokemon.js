@@ -7,7 +7,6 @@ import {setPokemonToShowAsync, getPokemonImage} from "../../store/actions/pokemo
 import {
     PokemonContainer,
     PokemonLogo,
-    Container,
     PokemonButton,
     PokemonFooter,
     PokemonName,
@@ -25,8 +24,8 @@ const Pokemon = ({pokemonToShow, setPokemonToShowAsync, loading, pokemonImage, g
         if (id === 0) {
             alert('To jest pierwszy pokemon na liście, sprawdź następne!');
         }
-        setPokemonToShowAsync(id)
-    }
+        setPokemonToShowAsync(id);
+    };
 
     return (
         <>
