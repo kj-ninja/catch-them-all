@@ -51,22 +51,21 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
                         <PokedexCol width={20}>EWOLUCJA</PokedexCol>
                     </PokedexHeaderRow>
                 }
-
                 {loading ? <Spinner/> :
                     transformedPokemons.map(pokemon => (
                         <PokemonItem key={pokemon.id} pokemon={pokemon}/>
                     ))
                 }
-                <PokedexPaginationRow>
-                    <PaginationComponent
-                        setActive={setActive}
-                        setPaginate={setPaginate}
-                        pages={pages}
-                        active={active}
-                        paginate={paginate}
-                    />
-                </PokedexPaginationRow>
             </PokedexContainer>
+            <PokedexPaginationRow>
+                <PaginationComponent
+                    setActive={setActive}
+                    setPaginate={setPaginate}
+                    pages={pages}
+                    active={active}
+                    paginate={paginate}
+                />
+            </PokedexPaginationRow>
         </>
     );
 };

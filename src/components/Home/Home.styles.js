@@ -11,7 +11,7 @@ export const HomeContainer = styled.div`
 
 export const HomeImage = styled.div`
     width: 49%;
-    height: 104vh;
+    height: 106vh;
     background-image: url(${img});
     
     @media screen and (max-width: 1200px) {

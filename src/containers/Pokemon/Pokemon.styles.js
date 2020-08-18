@@ -21,6 +21,13 @@ export const PokemonLogo = styled.div`
 export const PokemonSpecies = styled.div`
     display: flex;
     justify-content: space-between;
+    
+    @media screen and (max-width: 700px) {
+    flex-direction: column;
+    img {
+        max-width: 100%;
+    }
+}
 
 `;
 
@@ -28,12 +35,10 @@ export const PokemonImage = styled.div`
     width: 58%;
     display: flex;
     justify-content: flex-end;
+    
     @media screen and (max-width: 700px) {
-        img {
-            max-width: 100%;
-        }
+        width: 100%;
     }
-
 `;
 
 export const PokemonDescription = styled.div`
@@ -41,6 +46,7 @@ export const PokemonDescription = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-transform: capitalize;
     
     div {
         margin-bottom: 30px;
@@ -49,7 +55,12 @@ export const PokemonDescription = styled.div`
     span {
         font-weight: bold;
     }
+    
+    @media screen and (max-width: 700px) {
+        width: 100%;
+        padding: 10px;
 
+    }
 `;
 
 export const PokemonFooter = styled.div`
