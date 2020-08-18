@@ -27,6 +27,22 @@ export const fetchPokemons = (paginate, setTotalPages) => {
 
 export const setPokemonToShow = (pokemon) => ({type: actionTypes.SET_POKEMON_TO_SHOW, payload: pokemon});
 
+const getGenderByRate = (rate) => {
+    if (rate === -1) {
+        return 'Genderless';
+    }
+    if (rate === 0) {
+        return '100% samiec';
+    }
+    if (rate === 8) {
+        return '100% samica';
+    }
+    const femaleChance = (100 / (rate * 8)).toFixed(1);
+    const maleChance = (100 - femaleChance).toFixed(1);
+
+    return `${femaleChance}% samica, ${maleChance}% samiec`;
+};
+
 export const getPokemonById = (id) => {
     return async dispatch => {
         try {
@@ -42,6 +58,9 @@ export const getPokemonById = (id) => {
             const pokemonGeneration = await P.getGenerationByName(pokemonSpecies.generation.name);
             const pokemonRegion = pokemonGeneration.main_region.name
 
+            const genderRate = pokemonSpecies.gender_rate;
+            const pokemonGender = getGenderByRate(genderRate);
+
             const pokemonToShow = {
                 id: pokemon.id,
                 name: pokemon.name,
@@ -50,7 +69,8 @@ export const getPokemonById = (id) => {
                 japanName: pokemonInJapan,
                 pokemonTypes,
                 pokedexNumber,
-                region: pokemonRegion
+                region: pokemonRegion,
+                gender: pokemonGender
             };
 
             dispatch(setPokemonToShow(pokemonToShow));

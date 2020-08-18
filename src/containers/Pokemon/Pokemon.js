@@ -54,7 +54,7 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
                             </div>
                             <div>
                                 <p><span>Typ: </span>{pokemonToShow.types.join(' ')}</p>
-                                <p><span>Płeć: </span></p>
+                                <p><span>Płeć: </span>{pokemonToShow.gender}</p>
                                 <p><span>Region: </span>{pokemonToShow.region}</p>
                                 <p><span>Występowanie w dziczy: </span></p>
                                 <p><span>Możliwość złapania: </span></p>
