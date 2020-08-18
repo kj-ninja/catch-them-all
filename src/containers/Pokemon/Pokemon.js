@@ -48,16 +48,17 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
                             <img src={pokemonToShow.imageUrl} alt="pokemon"/>
                         </PokemonImage>
                         <PokemonDescription>
-                            <div><span>{pokemonToShow.name}</span> {pokemonToShow.japanName} - pokemon
+                            <div><span id="pokemonName">{pokemonToShow.name}</span> {pokemonToShow.japanName} - pokemon
                                 typu {pokemonToShow.types.join(', ')}.
                                 Znajduje się pod {pokemonToShow.pokedexNumber} numerem w pokedexie.
                             </div>
                             <div>
-                                <p><span>Typ: </span>{pokemonToShow.types.join(' ')}</p>
-                                <p><span>Płeć: </span>{pokemonToShow.gender}</p>
-                                <p><span>Region: </span>{pokemonToShow.region}</p>
-                                <p><span>Występowanie w dziczy: </span></p>
+                                <p><span>Typ: </span> {pokemonToShow.types.join(' ')}</p>
+                                <p><span>Płeć: </span> {pokemonToShow.gender}</p>
+                                <p><span>Region: </span> {pokemonToShow.region}</p>
+                                <p><span>Występowanie w dziczy: </span> {pokemonToShow.encounter}</p>
                                 <p><span>Możliwość złapania: </span></p>
+                                <p><span>Trudność złapania: </span> {pokemonToShow.catchingDifficulty}</p>
                                 <p><span>Występowanie Shiny: </span></p>
                                 <p><span>Dodawany do kolekcji przez: </span></p>
                             </div>

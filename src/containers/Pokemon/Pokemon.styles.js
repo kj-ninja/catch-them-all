@@ -48,12 +48,18 @@ export const PokemonDescription = styled.div`
     justify-content: center;
     text-transform: capitalize;
     
+    #pokemonName {
+        margin-bottom: 0;
+    }
+    
     div {
         margin-bottom: 30px;
     }
     
     span {
         font-weight: bold;
+        display: inline-block;
+        margin-bottom: 10px;
     }
     
     @media screen and (max-width: 700px) {

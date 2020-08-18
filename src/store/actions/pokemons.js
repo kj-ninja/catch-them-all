@@ -29,7 +29,7 @@ export const setPokemonToShow = (pokemon) => ({type: actionTypes.SET_POKEMON_TO_
 
 const getGenderByRate = (rate) => {
     if (rate === -1) {
-        return 'Genderless';
+        return 'genderless';
     }
     if (rate === 0) {
         return '100% samiec';
@@ -41,6 +41,18 @@ const getGenderByRate = (rate) => {
     const maleChance = (100 - femaleChance).toFixed(1);
 
     return `${femaleChance}% samica, ${maleChance}% samiec`;
+};
+
+const getCatchingDifficultyByRate = (rate) => {
+    if (rate < 45) {
+        return 'Wysoka';
+    }
+
+    if (rate > 150) {
+        return 'Niska';
+    } else {
+        return 'Średnia';
+    }
 };
 
 export const getPokemonById = (id) => {
@@ -61,6 +73,9 @@ export const getPokemonById = (id) => {
             const genderRate = pokemonSpecies.gender_rate;
             const pokemonGender = getGenderByRate(genderRate);
 
+            const encounter = pokemonSpecies.habitat ? pokemonSpecies.habitat.name : 'brak';
+            const catchingDifficulty = getCatchingDifficultyByRate(pokemonSpecies.capture_rate);
+
             const pokemonToShow = {
                 id: pokemon.id,
                 name: pokemon.name,
@@ -70,7 +85,9 @@ export const getPokemonById = (id) => {
                 pokemonTypes,
                 pokedexNumber,
                 region: pokemonRegion,
-                gender: pokemonGender
+                gender: pokemonGender,
+                encounter: encounter,
+                catchingDifficulty
             };
 
             dispatch(setPokemonToShow(pokemonToShow));
@@ -79,16 +96,3 @@ export const getPokemonById = (id) => {
         }
     };
 };
-
-// export const getPokemonImageSuccess = (image) => ({
-//     type: actionTypes.GET_POKEMON_IMAGE_SUCCESS,
-//     payload: image
-// });
-//
-// export const getPokemonImage = (name) => {
-//     return async dispatch => {
-//         dispatch(fetchPokemonsStart());
-//         const pokemonImage = await P.getPokemonByName(name) // with Promise
-//         dispatch(getPokemonImageSuccess(pokemonImage.sprites.other["official-artwork"].front_default));
-//     }
-// }
