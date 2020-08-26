@@ -7,7 +7,7 @@ function App() {
   return (
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path={process.env.PUBLIC_URL + "/pokemon/:pokemonId"} component={Pokemon}/>
+        <Route path="/pokemon/:pokemonId" component={Pokemon}/>
       </Switch>
   );
 }

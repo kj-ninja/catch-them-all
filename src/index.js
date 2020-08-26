@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <BrowserRouter basename="/kj-ninja.github.io">
                     <App/>
             </BrowserRouter>
         </Provider>
