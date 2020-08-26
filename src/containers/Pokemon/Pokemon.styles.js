@@ -11,7 +11,7 @@ export const PokemonLogo = styled.div`
     margin-bottom: 30px;
     cursor: pointer;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
         img {
             width: 300px;
         }
@@ -22,7 +22,7 @@ export const PokemonSpecies = styled.div`
     display: flex;
     justify-content: space-between;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
     flex-direction: column;
     img {
         max-width: 100%;
@@ -32,17 +32,17 @@ export const PokemonSpecies = styled.div`
 `;
 
 export const PokemonImage = styled.div`
-    width: 58%;
+    width: 40%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
         width: 100%;
     }
 `;
 
 export const PokemonDescription = styled.div`
-    width: 40%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,10 +62,9 @@ export const PokemonDescription = styled.div`
         margin-bottom: 10px;
     }
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
         width: 100%;
         padding: 10px;
-
     }
 `;
 
@@ -76,8 +75,8 @@ export const PokemonFooter = styled.div`
     margin: 30px auto;
     align-items: center;
     
-    @media screen and (max-width: 700px) {
-        width: 350px
+    @media screen and (max-width: 1200px) {
+        width: 100%;
     }
 `;
 
@@ -86,7 +85,7 @@ export const PokemonName = styled.div`
     font-size: 24px;
     font-weight: bold;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1000px) {
         font-size: 18px;
     }
 `;
@@ -99,7 +98,7 @@ export const PokemonButton = styled.div`
     font-size: 20px;
     cursor: pointer;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
         width: 100px;
         font-size: 16px;
         padding: 5px 3px;
@@ -114,3 +113,49 @@ export const PokemonButton = styled.div`
         }
 `;
 
+export const PokemonStats = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    text-transform: uppercase;
+    justify-content: center;
+    
+        @media screen and (max-width: 1200px) {
+        width: 100%;
+        font-size: 16px;
+        order: 3;
+    }
+`;
+
+export const PokemonStatsHeader = styled.div`
+    background-color: #ffe400;
+    padding: 15px;
+    font-weight: bold;
+    color: #2365b5;
+    font-size: 20px;
+
+`;
+
+export const PokemonStatsBody = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background-color: #eee;
+`;
+
+export const PokemonStatsName = styled.div`
+   width: 60%;
+   border-right: 1px solid #fff;
+
+`;
+
+export const PokemonStatsValue = styled.div`
+    width: 40%;
+    border-left: 1px solid #fff;
+    text-align: center;
+`;
+
+export const PokemonStatsRow = styled.div`
+    border-bottom: 2px solid #fff;
+    padding: 15px;
+   
+`;

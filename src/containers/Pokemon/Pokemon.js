@@ -10,7 +10,13 @@ import {
     PokemonButton,
     PokemonFooter,
     PokemonName,
-    PokemonImage, PokemonSpecies
+    PokemonImage, PokemonSpecies,
+    PokemonStats,
+    PokemonStatsHeader,
+    PokemonStatsBody,
+    PokemonStatsName,
+    PokemonStatsValue,
+    PokemonStatsRow
 } from "./Pokemon.styles";
 
 const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
@@ -44,6 +50,24 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
                 <PokemonLogo onClick={() => history.push('/')}><img src={Logo} alt="logo"/></PokemonLogo>
                 {loading ? <Spinner/> :
                     <PokemonSpecies>
+                        <PokemonStats>
+                            <PokemonStatsHeader>STATYSTYKI PODSTAWOWE:</PokemonStatsHeader>
+                            <PokemonStatsBody>
+                                <PokemonStatsName>
+                                    <PokemonStatsRow>Życie</PokemonStatsRow>
+                                    <PokemonStatsRow>Atak</PokemonStatsRow>
+                                    <PokemonStatsRow>Obrona</PokemonStatsRow>
+                                    <PokemonStatsRow>Atak Specjalny</PokemonStatsRow>
+                                    <PokemonStatsRow>Obrona Specjalna</PokemonStatsRow>
+                                    <PokemonStatsRow>Szybkość</PokemonStatsRow>
+                                </PokemonStatsName>
+                                <PokemonStatsValue>
+                                    {pokemonToShow.stats.map(stat => (
+                                        <PokemonStatsRow>{stat.base_stat}</PokemonStatsRow>
+                                    ))}
+                                </PokemonStatsValue>
+                            </PokemonStatsBody>
+                        </PokemonStats>
                         <PokemonImage>
                             <img src={pokemonToShow.imageUrl} alt="pokemon"/>
                         </PokemonImage>

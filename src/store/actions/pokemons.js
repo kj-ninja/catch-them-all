@@ -76,6 +76,8 @@ export const getPokemonById = (id) => {
             const encounter = pokemonSpecies.habitat ? pokemonSpecies.habitat.name : 'brak';
             const catchingDifficulty = getCatchingDifficultyByRate(pokemonSpecies.capture_rate);
 
+            console.log(pokemon.stats);
+
             const pokemonToShow = {
                 id: pokemon.id,
                 name: pokemon.name,
@@ -87,7 +89,8 @@ export const getPokemonById = (id) => {
                 region: pokemonRegion,
                 gender: pokemonGender,
                 encounter: encounter,
-                catchingDifficulty
+                catchingDifficulty,
+                stats: pokemon.stats
             };
 
             dispatch(setPokemonToShow(pokemonToShow));
