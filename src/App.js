@@ -6,8 +6,8 @@ import Pokemon from "./containers/Pokemon/Pokemon";
 function App() {
   return (
       <Switch>
-        <Route path={process.env.PUBLIC_URL + '/'} component={Home}/>
-        <Route path={process.env.PUBLIC_URL + '/pokemon/:pokemonId'} component={Pokemon}/>
+        <Route exact path="/" component={Home}/>
+        <Route path="/pokemon/:pokemonId" component={Pokemon}/>
       </Switch>
   );
 }
