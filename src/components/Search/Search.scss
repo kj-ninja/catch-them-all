@@ -1,0 +1,35 @@
+.search {
+  width: 30rem;
+  margin: 2rem auto;
+  max-width: 80%;
+
+  .card {
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  }
+
+  .search-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+
+    input {
+      font: inherit;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 0.15rem 0.25rem;
+
+      &:focus {
+        outline: none;
+        border-color: #20b1ff;
+      }
+    }
+  }
+}
+

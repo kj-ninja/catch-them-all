@@ -6,11 +6,11 @@ import {HomeContainer, HomeImage, HomePokemons, HomeLogo} from './Home.styles';
 const Home = () => {
     return (
         <HomeContainer>
-            <HomeImage/>
             <HomePokemons>
                 <HomeLogo><img src={Logo} alt="logo"/></HomeLogo>
                 <PokemonList/>
             </HomePokemons>
+            <HomeImage/>
         </HomeContainer>
     );
 };

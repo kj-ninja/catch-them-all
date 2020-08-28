@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const PokedexContainer = styled.div`
     width: 85%;
-    height: 878px;
+    height: 720px;
     margin: 30px auto;
     background-color: #eee;
     color: #2365b5;
+    overflow-Y: scroll;
     
     @media screen and (max-width: 700px) {
         font-size: 14px;

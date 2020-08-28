@@ -16,6 +16,7 @@ const pokemons = (state= initialState, action) => {
                 error: null
             }
         case actionTypes.FETCH_POKEMONS_SUCCESS:
+        case actionTypes.SORT_POKEMONS:
             return {
                 ...state,
                 transformedPokemons: action.payload,

@@ -62,8 +62,8 @@ const Pokemon = ({pokemonToShow, loading, history, match, getPokemonById}) => {
                                     <PokemonStatsRow>Szybkość</PokemonStatsRow>
                                 </PokemonStatsName>
                                 <PokemonStatsValue>
-                                    {pokemonToShow.stats.map(stat => (
-                                        <PokemonStatsRow>{stat.base_stat}</PokemonStatsRow>
+                                    {pokemonToShow.stats.map((stat,i) => (
+                                        <PokemonStatsRow key={i}>{stat.base_stat}</PokemonStatsRow>
                                     ))}
                                 </PokemonStatsValue>
                             </PokemonStatsBody>

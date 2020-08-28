@@ -28,7 +28,7 @@ const transformPokemons = (pokemons, callback) => {
                                 name: pokemon.species.name,
                                 imageUrl: pokemon.sprites.front_default,
                                 type: pokemon.types[0].type.name,
-                                minLvl: response.chain.evolves_to[0].evolution_details[0].min_level ? response.chain.evolves_to[0].evolution_details[0].min_level : 'brak',
+                                minLvl: response.chain.evolves_to[0].evolution_details[0] ? response.chain.evolves_to[0].evolution_details[0].min_level : 'brak',
                                 evolution: response.chain.evolves_to[0].evolves_to.length === 0 ? 'brak' : response.chain.evolves_to[0].evolves_to[0].species.name
                             })
                         } else if (response.chain.evolves_to.length > 0 &&

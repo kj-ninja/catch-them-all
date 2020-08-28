@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {fetchPokemons} from "../../store/actions/pokemons";
+import {fetchPokemons, sortByGender} from "../../store/actions/pokemons";
 import useWindowWidth from "../../functions/customHooks/useWindowWidth";
 import PaginationComponent from "../../components/Pagination/Pagination";
 import PokemonItem from "./PokemonItem/PokemonItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {PokedexContainer, PokedexHeaderRow, PokedexPaginationRow, PokedexCol} from "./PokemonList.styles";
+import Search from "../../components/Search/Search";
 
 const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
     const [paginate, setPaginate] = useState({
-        limit: 10,
+        limit: 100,
         offset: 0
     });
     const [totalPages, setTotalPages] = useState(null);
     const [active, setActive] = useState(1);
     const [pages, setPages] = useState([]);
+    const [inputValue, setInputValue] = useState('');
     const width = useWindowWidth();
 
     useEffect(() => {
@@ -33,8 +35,33 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
         }
     }, [active, totalPages]);
 
+    const filteredPokemons = () => {
+        return transformedPokemons.filter(recipe=> {
+            return recipe.name.toLowerCase().includes(inputValue.toLowerCase())
+        })
+    };
+
+    const sortByName = (sortMethod) => {
+        if (sortMethod === 'ascending') {
+            return filteredPokemons(transformedPokemons.sort((a, b) => {
+                return a.name < b.name ? -1 : 1;
+            }));
+        } else {
+            return filteredPokemons(transformedPokemons.sort((a, b) => {
+                return a.name > b.name ? -1 : 1;
+            }));
+        }
+    };
+
+    const sortById = () => {
+        return filteredPokemons(transformedPokemons.sort((a, b)=> {
+            return a.id - b.id;
+        }));
+    };
+
     return (
         <>
+            <Search setInputValue={setInputValue} sort={sortByName} reset={sortById} sortByGender={()=>sortByGender('female', transformedPokemons)}/>
             <PokedexContainer>
                 {width < 700 ?
                     <PokedexHeaderRow>
@@ -46,13 +73,13 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
                         <PokedexCol width={10}>ID</PokedexCol>
                         <PokedexCol width={20}>POKEMON</PokedexCol>
                         <PokedexCol width={20}>NAZWA</PokedexCol>
-                        <PokedexCol width={20}>MIN. LVL</PokedexCol>
-                        <PokedexCol width={10}>TYP</PokedexCol>
+                        <PokedexCol width={10}>MIN. LVL</PokedexCol>
+                        <PokedexCol width={20}>TYP</PokedexCol>
                         <PokedexCol width={20}>EWOLUCJA</PokedexCol>
                     </PokedexHeaderRow>
                 }
                 {loading ? <Spinner/> :
-                    transformedPokemons.map(pokemon => (
+                    filteredPokemons().map(pokemon => (
                         <PokemonItem key={pokemon.id} pokemon={pokemon}/>
                     ))
                 }

@@ -15,7 +15,7 @@ const PaginationComponent = ({ pages, active, setPaginate, setActive, paginate }
         }
         setPaginate({
             ...paginate,
-            offset: (e.target.value - 1) * 10
+            offset: (e.target.value - 1) * 100
         });
         setActive(e.target.value);
     };
