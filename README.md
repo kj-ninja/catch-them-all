@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Project based on pokemon API https://pokeapi.co/
 
-Fetching data, pagination, advanced routing, styled components, mobile friendly and redux.
+Fetching data, pagination, advanced routing, filtering, sorting, styled components, mobile friendly and redux.
 
 https://kj-ninja.github.io/catch-them-all/
 
