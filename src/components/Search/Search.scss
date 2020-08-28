@@ -1,5 +1,5 @@
 .search {
-  width: 30rem;
+  width: 45rem;
   margin: 2rem auto;
   max-width: 80%;
 
@@ -9,14 +9,22 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   }
 
+  .name {
+    margin-bottom: 5px;
+  }
+
   .search-input {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 15px;
 
     @media (min-width: 768px) {
       flex-direction: row;
+    }
+
+    label {
+      margin-right: 10px;
     }
 
     input {
@@ -29,6 +37,20 @@
         outline: none;
         border-color: #20b1ff;
       }
+    }
+  }
+
+  button {
+    border-radius: 18px;
+    color: rgb(119, 119, 119);
+    background-color: #fff;
+    border: 1px solid rgb(228, 232, 240);
+    padding: 3px 8px;
+    cursor: pointer;
+    margin: 5px 5px 5px 0;
+
+    &:hover {
+      background-color: rgb(245, 245, 245);
     }
   }
 }

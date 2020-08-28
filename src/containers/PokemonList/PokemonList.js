@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {fetchPokemons, sortByGender} from "../../store/actions/pokemons";
+import {fetchPokemons, getGender} from "../../store/actions/pokemons";
 import useWindowWidth from "../../functions/customHooks/useWindowWidth";
 import PaginationComponent from "../../components/Pagination/Pagination";
 import PokemonItem from "./PokemonItem/PokemonItem";
@@ -8,7 +8,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import {PokedexContainer, PokedexHeaderRow, PokedexPaginationRow, PokedexCol} from "./PokemonList.styles";
 import Search from "../../components/Search/Search";
 
-const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
+const PokemonList = ({fetchPokemons, transformedPokemons, initialPokemons, loading, getGender}) => {
     const [paginate, setPaginate] = useState({
         limit: 100,
         offset: 0
@@ -35,12 +35,13 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
         }
     }, [active, totalPages]);
 
-    const filteredPokemons = () => {
-        return transformedPokemons.filter(recipe=> {
-            return recipe.name.toLowerCase().includes(inputValue.toLowerCase())
+    const filteredPokemons = (arr) => {
+        return arr.filter(item=> {
+            return item.name.toLowerCase().includes(inputValue.toLowerCase())
         })
     };
 
+    // TODO: pomyslec nad przeniesieniem funkcji sortujacych
     const sortByName = (sortMethod) => {
         if (sortMethod === 'ascending') {
             return filteredPokemons(transformedPokemons.sort((a, b) => {
@@ -53,15 +54,59 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
         }
     };
 
-    const sortById = () => {
-        return filteredPokemons(transformedPokemons.sort((a, b)=> {
+    const reset = () => {
+        return filteredPokemons(initialPokemons.sort((a, b)=> {
             return a.id - b.id;
         }));
     };
 
+    const sortByGender = (gender) => {
+        getGender(gender, transformedPokemons);
+        return filteredPokemons(transformedPokemons);
+    };
+
+    // TODO: wydzielic to
+    const sortByType = (type) => {
+        const filteredArr = transformedPokemons.filter(item => item.type === type);
+        switch (type) {
+            case 'grass':
+                return filteredPokemons(filteredArr);
+            case 'fire':
+                return filteredPokemons(filteredArr);
+            case 'electric':
+                return filteredPokemons(filteredArr);
+            case 'water':
+                return filteredPokemons(filteredArr);
+            case 'bug':
+                return filteredPokemons(filteredArr);
+            case 'normal':
+                return filteredPokemons(filteredArr);
+            case 'poison':
+                return filteredPokemons(filteredArr);
+            case 'ground':
+                return filteredPokemons(filteredArr);
+            case 'fairy':
+                return filteredPokemons(filteredArr);
+            case 'fighting':
+                return filteredPokemons(filteredArr);
+            case 'psychic':
+                return filteredPokemons(filteredArr);
+            case 'rock':
+                return filteredPokemons(filteredArr);
+            case 'ghost':
+                return filteredPokemons(filteredArr);
+            case 'dragon':
+                return filteredPokemons(filteredArr);
+            case 'ice':
+                return filteredPokemons(filteredArr);
+            default:
+                return transformedPokemons;
+        }
+    };
+
     return (
         <>
-            <Search setInputValue={setInputValue} sort={sortByName} reset={sortById} sortByGender={()=>sortByGender('female', transformedPokemons)}/>
+            <Search setInputValue={setInputValue} sort={sortByName} reset={reset} sortByGender={sortByGender} sortByType={sortByType} />
             <PokedexContainer>
                 {width < 700 ?
                     <PokedexHeaderRow>
@@ -79,7 +124,7 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
                     </PokedexHeaderRow>
                 }
                 {loading ? <Spinner/> :
-                    filteredPokemons().map(pokemon => (
+                    filteredPokemons(transformedPokemons).map(pokemon => (
                         <PokemonItem key={pokemon.id} pokemon={pokemon}/>
                     ))
                 }
@@ -99,7 +144,8 @@ const PokemonList = ({fetchPokemons, transformedPokemons, loading}) => {
 
 const mapStateToProps = (state) => ({
    transformedPokemons: state.pokemons.transformedPokemons,
+   initialPokemons: state.pokemons.initialPokemons,
     loading: state.pokemons.loading
 });
 
-export default connect(mapStateToProps, {fetchPokemons})(PokemonList);
+export default connect(mapStateToProps, {fetchPokemons, getGender})(PokemonList);

@@ -7,6 +7,7 @@ const P = new Pokedex.Pokedex();
 export const fetchPokemonsStart = () => ({type: actionTypes.FETCH_POKEMONS_START});
 export const fetchPokemonsSuccess = (pokemons) => ({type: actionTypes.FETCH_POKEMONS_SUCCESS, payload: pokemons});
 export const sortPokemons = (pokemons) => ({type: actionTypes.SORT_POKEMONS, payload: pokemons});
+export const resetPokemons = () => ({type: actionTypes.RESET_POKEMONS});
 export const fetchPokemonsFail = (error) => ({type: actionTypes.FETCH_POKEMONS_FAIL, payload: error});
 
 export const fetchPokemons = (paginate, setTotalPages) => {
@@ -62,7 +63,7 @@ export const getPokemonById = (id) => {
             dispatch(fetchPokemonsStart());
             const pokemon = await P.resource(`api/v2/pokemon/${id}`);
             const pokemonImg = pokemon.sprites.other["official-artwork"].front_default;
-            const pokemonTypes = pokemon.types.map(({type})=> type.name);
+            const pokemonTypes = pokemon.types.map(({type}) => type.name);
 
             const pokemonSpecies = await P.getPokemonSpeciesByName(pokemon.name);
             const pokemonInJapan = `(jap. ${pokemonSpecies.names[0].name} ${pokemonSpecies.names[1].name})`
@@ -83,7 +84,7 @@ export const getPokemonById = (id) => {
                 id: pokemon.id,
                 name: pokemon.name,
                 imageUrl: pokemonImg,
-                types: pokemon.types.map(({type})=> type.name),
+                types: pokemon.types.map(({type}) => type.name),
                 japanName: pokemonInJapan,
                 pokemonTypes,
                 pokedexNumber,
@@ -101,25 +102,41 @@ export const getPokemonById = (id) => {
     };
 };
 
-export const sortByGender = async (gender, arr) => {
-        const pokemonsList = await P.resource(arr.map(pokemon => `/api/v2/pokemon-species/${pokemon.id}`));
+export const getGender = (gender, arr) => {
+    return async dispatch => {
+        try {
+            dispatch(fetchPokemonsStart());
+            const pokemonsList = await P.resource(arr.map(pokemon => `/api/v2/pokemon-species/${pokemon.id}`));
 
-        const gendersArr = pokemonsList.map(item => {
-            if (item.rate === 0) {
-                return 'samiec';
-            }
+            const gendersArr = pokemonsList.map(item => {
+                if (item.rate === 0) {
+                    return 'samiec';
+                }
 
-            const femaleChance = (100 / (item.gender_rate * 8)).toFixed(1);
-            if (femaleChance < 50) {
-                return 'samiec';
+                const femaleChance = (100 / (item.gender_rate * 8)).toFixed(1);
+                if (femaleChance < 50) {
+                    return 'samiec';
+                } else {
+                    return 'samica'
+                }
+            });
+
+            const mergedArr = arr.map((pok, i) => {
+                return {
+                    ...pok,
+                    gender: gendersArr[i]
+                }
+            });
+
+            if (gender === 'male') {
+                dispatch(sortPokemons(mergedArr.filter(item => item.gender === 'samiec')));
             } else {
-                return 'samica'
+                dispatch(sortPokemons(mergedArr.filter(item => item.gender !== 'samiec')));
             }
-        });
 
-        if (gender === 'male') {
-            return gendersArr.filter(gender => gender === 'samiec');
-        } else {
-            return gendersArr.filter(gender => gender !== 'samiec');
+        } catch(error) {
+            dispatch(fetchPokemonsFail(error));
         }
+
+    }
 };
